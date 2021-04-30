@@ -3,6 +3,7 @@ package com.main.jpa.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Cacheable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
+@Cacheable
 public class Guide {
 
 	@Id
@@ -22,7 +24,7 @@ public class Guide {
 	@Column(name = "GUIDE_NAME")
 	private String guideName;
 
-	@OneToMany(mappedBy = "guide", cascade = { CascadeType.PERSIST }, orphanRemoval = true)
+	@OneToMany(mappedBy = "guide", cascade = { CascadeType.PERSIST, CascadeType.MERGE }, orphanRemoval = true)
 	private Set<Student> studentSet;
 
 	public Guide(String guideName) {
